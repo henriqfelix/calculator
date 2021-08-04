@@ -15,10 +15,10 @@
 
 <body>
     <div id="container">
-        <div id="calculator">
+        <div id="calculator" class="off">
 
             <div id="top">
-                <input class="visor" type="text" disabled>
+                <input id="visor" type="text" disabled>
 
                 <div id="brand">
                     <span class="henriq">henriq</span><span class="felix">felix</span>
@@ -26,31 +26,33 @@
             </div>
 
             <div id="buttons">
-                <button class="linha2" class="button1" class="sinal" value="on">ON</button>
-                <button class="linha2" class="button1" class="sinal" value="+/-">+/-</button>
-                <button class="linha2" class="button1" class="sinal" value="ac">AC</button>
-                <button class="linha2" class="button1" class="sinal" value="c">C</button>
+                <button id="on" class="button" class="sinal" class="off" onclick="getElements()">ON</button>
+                <button id="pom" class="button" class="sinal" value="+/-" onclick="changeOperator()" disabled>+/-</button>
+                <button id="ac" class="button" class="sinal" value="ac" onclick="clearAll()" disabled>AC</button>
+                <button id="c" class="button" class="sinal" value="c" onclick="clear()" disabled>C</button>
 
-                <button class="linha3" class="button1" class="number" value="7">7</button>
-                <button class="linha3" class="button1" class="number" value="8">8</button>
-                <button class="linha3" class="button1" class="number" value="9">9</button>
-                <button class="linha3" class="button1" class="sinal" value="/">÷</button>
+                <button id="seven" class="button" class="number" value="7" onclick="calculate('7')" disabled>7</button>
+                <button id="eight" class="button" class="number" value="8" onclick="calculate('8')" disabled>8</button>
+                <button id="nine" class="button" class="number" value="9" onclick="calculate('9')" disabled>9</button>
+                <button id="divided" class="button" class="sinal" value="/" onclick="calculate('/')" disabled>÷</button>
 
-                <button class="linha4" class="button1" class="number" value="4">4</button>
-                <button class="linha4" class="button1" class="number" value="5">5</button>
-                <button class="linha4" class="button1" class="number" value="6">6</button>
-                <button class="linha4" class="button1" class="sinal" value="-">-</button>
+                <button id="four" class="button" class="number" value="4" onclick="calculate('4')" disabled>4</button>
+                <button id="five" class="button" class="number" value="5" onclick="calculate('5')" disabled>5</button>
+                <button id="six" class="button" class="number" value="6" onclick="calculate('6')" disabled>6</button>
+                <button id="minus" class="button" class="sinal" value="-" onclick="calculate('-')" disabled>-</button>
 
-                <button class="linha5" class="button1" class="number" value="1">1</button>
-                <button class="linha5" class="button1" class="number" value="2">2</button>
-                <button class="linha5" class="button1" class="number" value="3">3</button>
-                <button class="button2" class="sinal" value="+">+</button>
+                <button id="one" class="button" class="number" value="1" onclick="calculate('1')" disabled>1</button>
+                <button id="two" class="button" class="number" value="2" onclick="calculate('2')" disabled>2</button>
+                <button id="three" class="button" class="number" value="3" onclick="calculate('3')" disabled>3</button>
+                <button id="plus" class="button" class="sinal" value="+" onclick="calculate('+')" disabled>+</button>
 
-                <button class="linha6" class="button1" class="sinal" value=".">.</button>
-                <button class="linha6" class="button1" class="number" value="0">0</button>
-                <button class="linha6" class="button1" class="sinal" value="*">x</button>
+                <button id="point" class="button" class="sinal" value="." onclick="calculate('.')" disabled>.</button>
+                <button id="zero" class="button" class="number" value="0" onclick="calculate('0')" disabled>0</button>
+                <button id="multiply" class="button" class="sinal" value="*" onclick="calculate('*')" disabled>x</button>
 
-                <button class="button3" class="sinal" value="=">=</button>
+                <button id="equal" class="button" class="sinal" value="=" onclick="calculate('=')" disabled>=</button>
+
+                <script src="js/script.js"></script>
             </div>
         </div>
     </div>
