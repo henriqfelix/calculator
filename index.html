@@ -1,58 +1,59 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculadora</title>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
-    <div class="container">
-        <div class="calculadora">
-            
-            <div class="linha1">
+    <div id="container">
+        <div id="calculator">
+
+            <div id="top">
                 <input class="visor" type="text" disabled>
-                <div class="visor"></div>
+
+                <div id="brand">
+                    <span class="henriq">henriq</span><span class="felix">felix</span>
+                </div>
             </div>
 
-            <div class="linha2">
-                <button class="sinal" value="on">ON</button>
-                <button class="sinal" value="+/-">+/-</button>
-                <button class="sinal" value="ac">AC</button>
-                <button class="sinal" value="a">A</button>
-            </div>
-            
-            <div class="linha3">
-                <button class="numero" value="7">7</button>
-                <button class="numero" value="8">8</button>
-                <button class="numero" value="9">9</button>
-                <button class="sinal" value="/">÷</button>
-            </div>
+            <div id="buttons">
+                <button class="linha2" class="button1" class="sinal" value="on">ON</button>
+                <button class="linha2" class="button1" class="sinal" value="+/-">+/-</button>
+                <button class="linha2" class="button1" class="sinal" value="ac">AC</button>
+                <button class="linha2" class="button1" class="sinal" value="c">C</button>
 
-            <div class="linha4">
-                <button class="numero" value="4">4</button>
-                <button class="numero" value="5">5</button>
-                <button class="numero" value="6">6</button>
-                <button class="sinal" value="-">-</button>
-            </div>
+                <button class="linha3" class="button1" class="number" value="7">7</button>
+                <button class="linha3" class="button1" class="number" value="8">8</button>
+                <button class="linha3" class="button1" class="number" value="9">9</button>
+                <button class="linha3" class="button1" class="sinal" value="/">÷</button>
 
-            <div class="linha5">
-                <button class="numero" value="1">1</button>
-                <button class="numero" value="2">2</button>
-                <button class="numero" value="3">3</button>
-                <button class="sinal" value="+">+</button>
-            </div>
+                <button class="linha4" class="button1" class="number" value="4">4</button>
+                <button class="linha4" class="button1" class="number" value="5">5</button>
+                <button class="linha4" class="button1" class="number" value="6">6</button>
+                <button class="linha4" class="button1" class="sinal" value="-">-</button>
 
-            <div class="linha6">
-                <button class="sinal" value=".">.</button>
-                <button class="numero" value="0">0</button>
-                <button class="sinal" value="*">x</button>
-            </div>
+                <button class="linha5" class="button1" class="number" value="1">1</button>
+                <button class="linha5" class="button1" class="number" value="2">2</button>
+                <button class="linha5" class="button1" class="number" value="3">3</button>
+                <button class="button2" class="sinal" value="+">+</button>
 
-            <div class="linha7">
-                <button class="sinal" value="=">=</button>
+                <button class="linha6" class="button1" class="sinal" value=".">.</button>
+                <button class="linha6" class="button1" class="number" value="0">0</button>
+                <button class="linha6" class="button1" class="sinal" value="*">x</button>
+
+                <button class="button3" class="sinal" value="=">=</button>
             </div>
         </div>
     </div>
 </body>
+
 </html>
