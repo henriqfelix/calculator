@@ -48,4 +48,5 @@ currently displayed.
 allows floating point numbers up to 3 places to be entered and operations to
 be carried out to the maximum number of decimal places entered for any one
 number.
+-   [ ] User can use the calculator just when the button ON is activated.
 
