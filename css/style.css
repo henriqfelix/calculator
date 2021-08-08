@@ -48,6 +48,15 @@ body{
     color: #0fa7a7;
 }
 
+#lastInsert{
+    position: absolute;
+    right: 10px;
+    top: 18px;
+    color: #0fa7a7;
+    opacity: 1;
+    transition: .3s ease-in;
+}
+
 #visor{
     height: 100px;
     width: 100%;
