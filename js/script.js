@@ -1,6 +1,9 @@
 //captura elementos prioritários
 const on = document.querySelector('#on')
 const calculator = document.querySelector('.off')
+let newNumber = true
+let operator
+let lastNumber
 //captura elementos que serão necessários no decorrer do processo
 function getElements(){
     const buttons = document.querySelectorAll('.button')
@@ -48,6 +51,7 @@ function getElements(){
     
         //acende borda do visor
         visor.style.border = '2px solid rgb(0, 0, 0)'
+        visor.value = ''
         //acende a tecla ON
         on.style.color = 'white'
         //percorre por cada botão do array buttons
@@ -64,10 +68,80 @@ function getElements(){
     }
     //chama a função que desliga a calculadora
     turnOnOrTurnOff()
+
+
 }
 
+/*************************** operações *****************************/
+const pendingOperation = () => operator !== undefined
 
-function calculate(){
-    console.log('oi');
+const addInDisplay = (num) => {
+
+    if(newNumber){
+        visor.value = num
+        newNumber = false
+    }
+    else{
+        visor.value += num
+    }
+
+
 }
 
+const selectOperator = (op) => {
+
+    if(!newNumber){
+        calculate()
+        newNumber = true
+        operator = op
+        lastNumber = Number(visor.value)
+    }
+}
+
+const calculate = () => {
+    if(pendingOperation()){
+        const actualNumber = Number(visor.value)
+        newNumber = true
+
+        if(operator === '+'){
+            addInDisplay(lastNumber + actualNumber)
+        }
+        else if(operator === '-'){
+            addInDisplay(lastNumber - actualNumber)
+        }
+        else if(operator === '*'){
+            addInDisplay(lastNumber * actualNumber)
+        }
+        else if(operator === '/'){
+            addInDisplay(lastNumber / actualNumber)
+        }
+    }
+}
+
+const equalValidation = () => {
+    calculate()
+    operator = undefined
+}
+
+/*********************** outros botoões ***************************/
+
+calculator.querySelector('#equal').addEventListener('click', equalValidation)
+
+/***************************** lógica ******************************/
+
+calculator.addEventListener('click', e =>{
+
+    const target = e.target
+
+    if(target.classList.contains('off')){
+        getElements()
+    }
+
+    if(target.classList.contains('number')){
+        addInDisplay(target.value)
+    }
+
+    if(target.classList.contains('operator')){
+        selectOperator(target.value)
+    }
+})

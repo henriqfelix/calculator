@@ -56,6 +56,10 @@ body{
     border: 2px solid rgb(0, 0, 0);
     border-radius: 4px;
     transition: 1s ease-in;
+    font-size: 36px;
+    text-align: right;
+    padding: 10px;
+    color: white;
 }
 
 #plus{
