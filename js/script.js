@@ -68,14 +68,14 @@ function getElements(){
     }
     //chama a função que desliga a calculadora
     turnOnOrTurnOff()
-
-
 }
 
 /*************************** operações *****************************/
 const pendingOperation = () => operator !== undefined
 
 const addInDisplay = (num) => {
+
+    brand.style.opacity = '.1'
 
     if(newNumber){
         visor.value = num
@@ -84,8 +84,6 @@ const addInDisplay = (num) => {
     else{
         visor.value += num
     }
-
-
 }
 
 const selectOperator = (op) => {
@@ -118,14 +116,30 @@ const calculate = () => {
     }
 }
 
-const equalValidation = () => {
-    calculate()
-    operator = undefined
-}
-
 /*********************** outros botoões ***************************/
 
-calculator.querySelector('#equal').addEventListener('click', equalValidation)
+calculator.querySelector('#equal').addEventListener('click', () =>{
+    
+    calculate()
+    operator = undefined
+})
+
+calculator.querySelector('#ce').addEventListener('click', () => {
+    visor.value = ''
+    brand.style.opacity = '1'
+})
+
+calculator.querySelector('#c').addEventListener('click', () => {
+    visor.value = ''
+    newNumber = true
+    lastNumber = undefined
+    actualNumber = undefined
+    brand.style.opacity = '1'
+})
+
+calculator.querySelector('#invert').addEventListener('click', () => {
+    visor.value *= -1
+})
 
 /***************************** lógica ******************************/
 
