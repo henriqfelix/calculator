@@ -1,9 +1,9 @@
+# 🚧 Aplicação em construção 🚧
+
 # calculator
 app calculadora
 
 # Calculator
-
-**Tier:** 1-Beginner
 
 Calculators are not only one of the most useful tools available, but they are
 also a great way to understand UI and event processing in an application. In
