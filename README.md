@@ -38,4 +38,4 @@ operation. If the users last entry was an operation the display will be updated 
 
 - [ ] User can click a '+/-' button to change the sign of the number that is currently displayed;
 - [ ] User can see a decimal point ('.') button on the entry pad to that allows floating point numbers up to 3 places to be entered and operations to be carried out to the maximum number of decimal places entered for any one number;
-- [ ] User can use the calculator just when the button ON is activated.
+- [x] User can use the calculator just when the button ON is activated.

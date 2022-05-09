@@ -1,161 +1,168 @@
-//captura elementos prioritários
-const on = document.querySelector('#on')
-const calculator = document.querySelector('.off')
-let newNumber = true
-let operator
-let lastNumber
-//captura elementos que serão necessários no decorrer do processo
-function getElements(){
-    const buttons = document.querySelectorAll('.button')
-    const visor = document.querySelector('#visor')
-    const brand = document.querySelector('#brand')
-    //valida se a calculadora está desligada ou ligada
-    function turnOnOrTurnOff(){
-        //verifica se calculator contém a classe off
-        if(calculator.classList.contains('off')){
-            //remove classe off
-            calculator.classList.remove('off')
-            //adiciona claasse on
-            calculator.classList.add('on')
-            //chama a função que liga a calculadora
-            turnOnCalculator()
-        }//verifica se calculator contém a classe on
-        else if(calculator.classList.contains('on')){
-            //remove classe on
-            calculator.classList.remove('on')
-            //adiciona claasse off
-            calculator.classList.add('off')
-            //chama a função que desliga a calculadora
-            turnOffCalculator()
-        }
+const calculator = document.querySelector('#calculator')
+const buttons = document.querySelectorAll('.button')
+const display = document.querySelector('#display')
+const operator = document.querySelector('#op')
+
+let newNumber = true;
+let oldNumber = document.querySelector('#lastInsert')
+let op 
+let lastOp
+let isEqual = false
+let opp = 1
+console.log(lastOp)
+
+calculator.addEventListener('click', e => {
+
+    let el = e.target
+
+    if(el.classList.contains('button_off')){
+        turnOnCalculator(el)
     }
-    //liga a calculadora
-    function turnOnCalculator(){
-        
-        //acende borda do visor
-        visor.style.border = '2px solid #0fa7a7'
-        //acende a tecla ON
-        on.style.color = '#0fa7a7'
-        //percorre por cada botão do array buttons
-        buttons.forEach(button => {
-            //acende as luzes das teclas
-            button.style.boxShadow = '#0fa7a7 0px 0px 7px'
-            //ativa os botões
-            button.disabled = false
-        });
-        //acende nome no visor
-        brand.style.opacity = '1'
-    }
-    //desliga a calculadora
-    function turnOffCalculator(){
-    
-        //acende borda do visor
-        visor.style.border = '2px solid rgb(0, 0, 0)'
-        visor.value = ''
-        //acende a tecla ON
-        on.style.color = 'white'
-        //percorre por cada botão do array buttons
-        buttons.forEach(button => {
-            //apaga as luzes das teclas
-            button.style.boxShadow = ''
-            //desativa os botões
-            button.disabled = true
-        });
-        //ativa botão on para que seja possível religar a calculadora
-        on.disabled = false
-        //acende nome no visor
-        brand.style.opacity = '0'
-    }
-    //chama a função que desliga a calculadora
-    turnOnOrTurnOff()
-}
-
-/*************************** operações *****************************/
-const pendingOperation = () => operator !== undefined
-
-const addInDisplay = (num) => {
-
-    brand.style.opacity = '.1'
-
-    if(newNumber){
-        visor.value = num
-        newNumber = false
+    else if(el.classList.contains('button_on')){
+        turnOffCalculator(el)
     }
     else{
-        visor.value += num
+        runCalculator(el)
+    }
+})
+
+function turnOnCalculator(el){
+
+    el.classList.remove('button_off')
+    el.classList.add('button_on')
+
+    display.style.border = '2px solid #0fa7a7'
+    on.style.color = '#0fa7a7'
+
+    buttons.forEach(button => {
+        button.style.boxShadow = '#0fa7a7 0px 0px 7px'
+        button.disabled = false
+    });
+    brand.style.opacity = '.8'
+    isEqual = false
+}
+
+function turnOffCalculator(el){
+    el.classList.remove('button_on')
+    el.classList.add('button_off')
+
+    display.style.border = '2px solid rgb(0, 0, 0)'
+    display.value = ''
+    on.style.color = 'white'
+    
+    buttons.forEach(button => {
+        button.style.boxShadow = ''
+        button.disabled = true
+    });
+    on.disabled = false
+    oldNumber.innerHTML = ''
+    operator.innerHTML = ''
+    brand.style.opacity = '0'
+    opp = 1
+}
+
+function runCalculator(el){
+
+    if(el.classList.contains('number')){
+        addNumOnDisplay(el.value)
+    }
+    else if(el.classList.contains('operator')){
+        lastOp = el.value
+        selectOperator(el.value)
+    }
+    else if(el.value === '='){
+        equal(lastOp)
     }
 }
 
-const selectOperator = (op) => {
+const addNumOnDisplay = el => {
+    brand.style.opacity = '.1'
 
+    if(newNumber && opp === 1){
+        oldNumber.innerHTML = display.value
+        display.value = el
+        newNumber = false
+    }    
+    else if(newNumber){
+        oldNumber.innerHTML = display.value
+        display.value = el
+        newNumber = false
+        isEqual = false
+        addOpOnDisplay(op)
+        console.log(`op recebido: ${op}`)
+    }
+    else{
+        display.value += el
+    }
+    opp++
+}
+
+const addOpOnDisplay = (el) => {
+
+    if(isEqual === false){
+        operator.innerHTML = el
+        isEqual = true
+    }
+    else{
+        operator.innerHTML = '='
+    }
+}
+
+const addCountOnDisplay = (num1, num2, op) => {
+    if(pendingOperation) oldNumber.innerHTML = `${num1} ${op} ${num2}`
+}
+
+const selectOperator = el => {
     if(!newNumber){
-        calculate()
         newNumber = true
-        operator = op
-        lastNumber = Number(visor.value)
+        op = el
+        calculate()
+        addOpOnDisplay(op)
     }
 }
+
+const pendingOperation = () => op !== undefined
 
 const calculate = () => {
-    if(pendingOperation()){
-        const actualNumber = Number(visor.value)
-        newNumber = true
 
-        if(operator === '+'){
-            addInDisplay(lastNumber + actualNumber)
-        }
-        else if(operator === '-'){
-            addInDisplay(lastNumber - actualNumber)
-        }
-        else if(operator === '*'){
-            addInDisplay(lastNumber * actualNumber)
-        }
-        else if(operator === '/'){
-            addInDisplay(lastNumber / actualNumber)
+    if(pendingOperation()){
+        newNumber = true
+        let num1 = parseFloat(oldNumber.innerHTML)
+        let num2 = parseFloat(display.value)
+        if(!isNaN(num1) && !isNaN(num2)){
+            if(op === '+'){
+                addNumOnDisplay(num1 + num2)
+                newNumber = true
+                addCountOnDisplay(num1, num2, op)
+                isEqual = true
+            }
+            if(op === '-'){
+                addNumOnDisplay(num1 - num2)
+                newNumber = true
+                addCountOnDisplay(num1, num2, op)
+                isEqual = true
+            }
+            if(op === '*'){
+                addNumOnDisplay(num1 * num2)
+                newNumber = true
+                addCountOnDisplay(num1, num2, op)
+                isEqual = true
+            }
+            if(op === '/'){
+                addNumOnDisplay(num1 / num2)
+                newNumber = true
+                addCountOnDisplay(num1, num2, op)
+                isEqual = true
+            }
         }
     }
 }
 
-/*********************** outros botoões ***************************/
+const equal = (lastOp) => {
 
-calculator.querySelector('#equal').addEventListener('click', () =>{
-    
-    calculate()
-    operator = undefined
-})
-
-calculator.querySelector('#ce').addEventListener('click', () => {
-    visor.value = ''
-    brand.style.opacity = '1'
-})
-
-calculator.querySelector('#c').addEventListener('click', () => {
-    visor.value = ''
+    console.log(lastOp)
+    selectOperator(lastOp)
+    operator.innerHTML = '='
     newNumber = true
-    lastNumber = undefined
-    actualNumber = undefined
-    brand.style.opacity = '1'
-})
-
-calculator.querySelector('#invert').addEventListener('click', () => {
-    visor.value *= -1
-})
-
-/***************************** lógica ******************************/
-
-calculator.addEventListener('click', e =>{
-
-    const target = e.target
-
-    if(target.classList.contains('off')){
-        getElements()
-    }
-
-    if(target.classList.contains('number')){
-        addInDisplay(target.value)
-    }
-
-    if(target.classList.contains('operator')){
-        selectOperator(target.value)
-    }
-})
+    
+}
