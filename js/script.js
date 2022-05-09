@@ -90,7 +90,11 @@ const addNumOnDisplay = el => {
         addOpOnDisplay(lastOp)
     }
     else{
-        display.value += el
+        if(display.value.length < 8){
+            display.value += el
+        }else{
+            return
+        }
     }
     opp++
 }
