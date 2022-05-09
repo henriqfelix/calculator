@@ -9,7 +9,6 @@ let op
 let lastOp
 let isEqual = false
 let opp = 1
-console.log(lastOp)
 
 calculator.addEventListener('click', e => {
 
@@ -88,8 +87,7 @@ const addNumOnDisplay = el => {
         display.value = el
         newNumber = false
         isEqual = false
-        addOpOnDisplay(op)
-        console.log(`op recebido: ${op}`)
+        addOpOnDisplay(lastOp)
     }
     else{
         display.value += el
@@ -159,10 +157,5 @@ const calculate = () => {
 }
 
 const equal = (lastOp) => {
-
-    console.log(lastOp)
     selectOperator(lastOp)
-    operator.innerHTML = '='
-    newNumber = true
-    
 }
