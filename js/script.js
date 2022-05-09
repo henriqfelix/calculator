@@ -9,6 +9,7 @@ let op
 let lastOp
 let isEqual = false
 let opp = 1
+let result = 0
 
 calculator.addEventListener('click', e => {
 
@@ -58,6 +59,8 @@ function turnOffCalculator(el){
     operator.innerHTML = ''
     brand.style.opacity = '0'
     opp = 1
+    result = 0
+    lastOp = undefined
 }
 
 function runCalculator(el){
@@ -67,10 +70,20 @@ function runCalculator(el){
     }
     else if(el.classList.contains('operator')){
         lastOp = el.value
+        console.log(lastOp)
         selectOperator(el.value)
     }
     else if(el.value === '='){
         equal(lastOp)
+    }
+    else if(el.value === 'c'){
+        c()
+    }
+    else if(el.value === 'ac'){
+        ac()
+    }
+    else if(el.value === 'changeOp'){
+        changeOp()
     }
 }
 
@@ -90,18 +103,31 @@ const addNumOnDisplay = el => {
         addOpOnDisplay(lastOp)
     }
     else{
-        if(display.value.length < 8){
+        let num = display.value
+        num = num.replace(/[.]/g, '')
+        if(num.length < 8){
             display.value += el
+            console.log(display.value, num)
         }else{
             return
         }
     }
     opp++
+    checkResult()
+}
+
+const checkResult = () => {
+    console.log(result.toString().length)
+    if(result.toString().length > 8){
+        display.value = 'ERR'
+        return
+    }
 }
 
 const addOpOnDisplay = (el) => {
 
     if(isEqual === false){
+        console.log(el)
         operator.innerHTML = el
         isEqual = true
     }
@@ -133,7 +159,8 @@ const calculate = () => {
         let num2 = parseFloat(display.value)
         if(!isNaN(num1) && !isNaN(num2)){
             if(op === '+'){
-                addNumOnDisplay(num1 + num2)
+                result = num1 + num2
+                addNumOnDisplay(result)
                 newNumber = true
                 addCountOnDisplay(num1, num2, op)
                 isEqual = true
@@ -163,3 +190,30 @@ const calculate = () => {
 const equal = (lastOp) => {
     selectOperator(lastOp)
 }
+
+const c = () => {
+    console.log(lastOp  )
+    if(lastOp !== '+' && lastOp !== '-' && lastOp !== '*' && lastOp !== '/'){
+        display.value = display.value.slice(0, -1)
+    }else{
+        lastOp = undefined
+        operator.innerHTML = ''
+    }
+    newNumber = false
+    isEqual = false
+}
+
+const ac = () => {
+    newNumber = true
+    op = undefined
+    lastOp = undefined
+    isEqual = false
+    opp = 1
+    result = 0
+    display.value = ''
+    oldNumber.innerHTML = ''
+    operator.innerHTML = ''
+    brand.style.opacity = '.8'
+}
+
+const changeOp = () => display.value = display.value * -1
